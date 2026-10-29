@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório de transferências</title>
+  <link rel="stylesheet" href="assets/app.css">
+  <script>
+    // aplica o tema salvo antes de desenhar a página (evita piscar)
+    try { const t = localStorage.getItem("tema"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="pagina">
+    <header class="topo">
+      <div>
+        <p class="sobre">Relatório gerencial</p>
+        <h1>Transferências entre filiais</h1>
+        <p class="periodo" id="periodo">&nbsp;</p>
+      </div>
+      <button class="icone" id="tema" type="button" title="Alternar tema claro/escuro" aria-label="Alternar tema">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
+      </button>
+    </header>
+
+    <section class="filtros" aria-label="Filtros">
+      <label class="campo"><span>Mês</span><select id="f-mes"></select></label>
+      <label class="campo"><span>Ano</span><select id="f-ano"></select></label>
+      <label class="campo"><span>Loja emissora</span><select id="f-loja"><option value="">Todas</option></select></label>
+      <label class="campo largo"><span>Grupo</span><select id="f-grupo"><option value="">Todos os grupos</option></select></label>
+      <button class="botao" id="atualizar" type="button" title="Buscar de novo no banco">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+        Atualizar
+      </button>
+    </section>
+
+    <div id="avisos"></div>
+
+    <section class="kpis" id="kpis" aria-live="polite">
+      <article class="kpi destaque"><span>Total transferido</span><strong id="k-total">—</strong><small id="k-total-sub">&nbsp;</small></article>
+      <article class="kpi"><span>Notas emitidas</span><strong id="k-notas">—</strong><small id="k-notas-sub">&nbsp;</small></article>
+      <article class="kpi"><span>Filiais de destino</span><strong id="k-filiais">—</strong><small id="k-filiais-sub">&nbsp;</small></article>
+      <article class="kpi"><span>Produtos transferidos</span><strong id="k-produtos">—</strong><small id="k-produtos-sub">&nbsp;</small></article>
+    </section>
+
+    <section class="cartao">
+      <div class="cartao-topo">
+        <div>
+          <h2>Fluxo das transferências</h2>
+          <p class="ajuda">Loja emissora → grupo de produto → filial de destino. Clique numa loja, grupo ou filial para filtrar.</p>
+        </div>
+        <div id="chip-filial"></div>
+      </div>
+      <div class="sankey" id="sankey" role="img" aria-label="Diagrama de Sankey das transferências"></div>
+    </section>
+
+    <div class="tabelas">
+      <section class="cartao">
+        <div class="cartao-topo">
+          <div>
+            <h2>Produtos transferidos</h2>
+            <p class="ajuda" id="prod-resumo">&nbsp;</p>
+          </div>
+          <div class="acoes">
+            <input class="busca" id="prod-busca" type="search" placeholder="Buscar código ou descrição" aria-label="Buscar produto">
+            <button class="botao fantasma" type="button" data-csv="produtos" title="Baixar CSV">CSV</button>
+          </div>
+        </div>
+        <div class="rolagem">
+          <table id="t-produtos">
+            <thead><tr>
+              <th data-ord="codigo">Código</th>
+              <th data-ord="descricao">Descrição</th>
+              <th data-ord="qtde" class="num">Quantidade</th>
+              <th data-ord="valor" class="num">Valor</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="cartao">
+        <div class="cartao-topo">
+          <div>
+            <h2>Notas emitidas</h2>
+            <p class="ajuda" id="nf-resumo">&nbsp;</p>
+          </div>
+          <div class="acoes">
+            <input class="busca" id="nf-busca" type="search" placeholder="Buscar NF ou filial" aria-label="Buscar nota">
+            <button class="botao fantasma" type="button" data-csv="notas" title="Baixar CSV">CSV</button>
+          </div>
+        </div>
+        <div class="rolagem">
+          <table id="t-notas">
+            <thead><tr>
+              <th data-ord="nf">NF</th>
+              <th data-ord="data">Emissão</th>
+              <th data-ord="rota">Origem → Destino</th>
+              <th data-ord="valor" class="num">Valor</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <footer class="rodape">NF-e autorizadas com CFOP 5.152, 5.409, 5.552 e 5.557. Com um grupo escolhido, os valores mostram só os itens desse grupo.</footer>
+  </div>
+
+  <div class="dica" id="dica" role="tooltip" hidden></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>

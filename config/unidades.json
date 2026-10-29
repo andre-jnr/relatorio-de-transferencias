@@ -1,0 +1,20 @@
+{
+  "_leia": "Lojas que emitem NF de transferência e nomes das filiais de destino. Não coloque senhas aqui: elas ficam no .env. Quais lojas são consultadas é decidido por LOJAS no .env.",
+  "cfops_transferencia": ["5.152", "5.409", "5.552", "5.557"],
+  "lojas": [
+    { "slug": "parque_dez", "nome": "Parque Dez", "servidor": "serverprq10", "banco": "sismoura" },
+    { "slug": "ponta_negra", "nome": "Ponta Negra", "servidor": "server_pn", "banco": "sismoura" },
+    { "slug": "morada_do_sol", "nome": "Morada do Sol", "servidor": "serverad", "banco": "sismoura_srv", "timeout": 60 },
+    { "slug": "monte_das_oliveiras", "nome": "Monte das Oliveiras", "servidor": "200.150.200.180", "banco": "SISMOURA_SRV_MONTE" },
+    { "slug": "flores", "nome": "Flores", "servidor": "server", "banco": "sismoura", "credencial": "FLORES" },
+    { "slug": "cd", "nome": "CD", "servidor": "serverprq10", "banco": "sismoura_cd" }
+  ],
+  "_filiais": "CNPJ do destinatário (só números) -> nome da filial. Destino fora da lista aparece com o nome da nota.",
+  "filiais": {
+    "19234190000130": "Parque Dez",
+    "19234190000300": "Ponta Negra",
+    "19234190000482": "Monte das Oliveiras",
+    "19234190000644": "CD",
+    "19234190000725": "Morada do Sol"
+  }
+}
