@@ -7,6 +7,19 @@ Relatório de uma página com as **transferências entre filiais** (NF-e emitida
 - **Iniciar local:** `Abrir Relatorio.bat` ou `python app.py` → http://localhost:3008
 - **Servidor:** `python app.py --producao` (aceita acesso da rede).
 
+## Publicar no servidor (Windows)
+
+1. Copie a pasta do projeto para o servidor.
+2. Tenha o Python 3.10+ instalado.
+3. Crie o `.env` a partir do `.env.example` (porta, lojas e logins do banco).
+4. Clique duas vezes em `servidor\instalar.bat` e confirme o pedido de administrador.
+
+Sobe sozinho ao ligar o computador (tarefa agendada "Relatorio de transferencias (3008)"), reinicia se cair,
+e fica acessível em http://NOME-DO-SERVIDOR:3008. Log: `logs\servidor.log`.
+O servidor precisa enxergar os bancos das lojas listadas em `LOJAS` (mesma rede do Relatório gerencial).
+Para atualizar: copie os arquivos novos e rode o `instalar.bat` de novo.
+Para remover: `servidor\desinstalar.bat` (não apaga dados).
+
 ## O que a página mostra
 
 - **Filtros:** mês, ano, loja emissora (ou todas) e grupo de produto.
